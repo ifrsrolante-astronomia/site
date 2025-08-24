@@ -1,11 +1,4 @@
 module.exports = function (eleventyConfig) {
- 
-
-  eleventyConfig.addPassthroughCopy({
-    "src/css": "css",
-    "src/blog/img": "img/",
-  });
-
   eleventyConfig.addCollection("posts", function (collectionApi) {
     return collectionApi.getFilteredByGlob("src/blog/*.md").reverse();
   });
@@ -29,6 +22,18 @@ module.exports = function (eleventyConfig) {
     return collectionApi
       .getFilteredByGlob("src/blog/*.md")
       .sort((a, b) => b.date - a.date);
+  });
+
+  eleventyConfig.addCollection("participants", function (collectionApi) {
+    return collectionApi.getFilteredByGlob("src/sobre/*.md").sort((a, b) => {
+      const A = (
+        a.data && a.data.title ? String(a.data.title) : ""
+      ).toLowerCase();
+      const B = (
+        b.data && b.data.title ? String(b.data.title) : ""
+      ).toLowerCase();
+      return A.localeCompare(B);
+    });
   });
 
   eleventyConfig.addFilter("stripHtml", function (value) {
@@ -70,6 +75,45 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addPassthroughCopy("src/css");
+
+  eleventyConfig.addCollection(
+    "participantsFiltered",
+    function (collectionApi) {
+      try {
+        const byTag =
+          collectionApi.getFilteredByTag &&
+          collectionApi.getFilteredByTag("participants");
+        if (byTag && byTag.length) {
+          return byTag.filter((p) => p.url !== "/sobre/");
+        }
+      } catch (e) {
+        /* ignora */
+      }
+
+      if (collectionApi.getAll && collectionApi.getFilteredByGlob) {
+        const maybe = collectionApi.getAll().filter((item) => {
+          const layout =
+            item.data && item.data.layout
+              ? String(item.data.layout).toLowerCase()
+              : "";
+          const inParticipantsFolder = (item.inputPath || "")
+            .toLowerCase()
+            .includes("/participants/");
+          return (
+            (layout.includes("participant") || inParticipantsFolder) &&
+            item.url !== "/sobre/"
+          );
+        });
+        if (maybe.length) return maybe;
+      }
+
+      return collectionApi.getAll().filter((item) => item.url !== "/sobre/");
+    }
+  );
+
+  eleventyConfig.addPassthroughCopy({
+    "src/blog/img": "img",
+  });
 
   return {
     dir: { input: "src", includes: "_includes", output: "_site" },
