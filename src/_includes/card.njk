@@ -1,0 +1,23 @@
+<div class="card">
+  <h2><a href="{{ url }}">{{ title }}</a></h2>
+
+  {% if date %}
+    <p class="post-date">Publicado em {{ date | date: "%d/%m/%Y" }}</p>
+  {% endif %}
+
+  {% if description | trim | length %}
+    {{ description | markdown | safe }}
+  {% endif %}
+
+  {% if topics %}
+    <ul>
+      {% for t in topics %}
+        <li>{{ t }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if btnUrl %}
+    <a class="btn" href="{{ btnUrl }}">Ver mais</a>
+  {% endif %}
+</div>

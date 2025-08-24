@@ -1,0 +1,18 @@
+---
+layout: base.njk
+---
+
+<h1>{{ title }}</h1>
+
+<div class="cards-list">
+  {{ content | safe }}
+</div>
+
+<nav class="pagination">
+  {% if pagination.href.previous %}
+    <a href="{{ pagination.href.previous }}" class="btn">⬅ Página anterior</a>
+  {% endif %}
+  {% if pagination.href.next %}
+    <a href="{{ pagination.href.next }}" class="btn">Próxima página ➡</a>
+  {% endif %}
+</nav>

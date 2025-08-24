@@ -1,0 +1,12 @@
+:root {
+  --bg-top: #071a52;
+  --bg-bottom: #00102b;
+  --accent: #4aa3ff;
+  --accent-deep: #1f63a8;
+  --accent-soft: #8ecfff;
+  --muted: #95aac3;
+  --card-bg: rgba(20, 30, 60, 0.45);
+  --text: #e6f4ff;
+  --subtext: #c9def6;
+  --footer-bg: #03172a;
+}
