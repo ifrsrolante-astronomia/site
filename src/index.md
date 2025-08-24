@@ -41,7 +41,7 @@ title: Bem-vindo ao Clube de Astronomia IFRS
   <h2>Fale Conosco</h2>
   <p>Quer saber mais ou participar do clube? Entre em contato conosco:</p>
   <ul>
-    <li>Instagram: <a href="https://instagram.com/clubeastronomia" target="_blank">@clubeastronomia</a></li>
+    <li>Instagram: <a href="https://instagram.com/clube_astronomia_rolante/" target="_blank">@clube_astronomia_rolante</a></li>
    <li>Próximo encontro: {{ "" | nextWednesday }}</li>
 
   </ul>
