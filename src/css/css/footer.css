@@ -3,7 +3,7 @@
   color: var(--muted);
   text-align: center;
   padding: 18px 10px;
-  border-top: 1px solid rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
   font-size: .92rem;
   flex-shrink: 0;
   width: 100%;
