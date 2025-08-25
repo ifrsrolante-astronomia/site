@@ -15,7 +15,8 @@
     --btn-font-size: .95rem;
 }
 
-.participant-profile {
+/* container */
+.ca-participant-profile {
     box-sizing: border-box;
     max-width: var(--site-max);
     margin: 2rem auto;
@@ -27,7 +28,8 @@
     color: var(--text);
 }
 
-.participant-header {
+/* header */
+.ca-participant-header {
     display: flex;
     gap: 1.25rem;
     align-items: center;
@@ -35,11 +37,11 @@
     flex-wrap: wrap;
 }
 
-.participant-media {
+.ca-participant-media {
     flex: 0 0 auto;
 }
 
-.participant-photo {
+.ca-participant-photo {
     width: clamp(120px, 20vw, 200px);
     height: clamp(120px, 20vw, 200px);
     object-fit: cover;
@@ -49,7 +51,7 @@
     display: block;
 }
 
-.participant-photo--fallback {
+.ca-participant-photo--fallback {
     width: clamp(120px, 20vw, 200px);
     height: clamp(120px, 20vw, 200px);
     border-radius: 12px;
@@ -62,21 +64,22 @@
     box-shadow: 0 8px 28px rgba(2, 6, 23, 0.35);
 }
 
-.participant-headline {
+/* headline */
+.ca-participant-headline {
     display: flex;
     flex-direction: column;
     gap: .35rem;
     min-width: 0;
 }
 
-.participant-title-row {
+.ca-participant-title-row {
     display: flex;
     gap: .6rem;
     align-items: baseline;
     flex-wrap: wrap;
 }
 
-.participant-name {
+.ca-participant-name {
     margin: 0;
     font-size: clamp(1.4rem, 3.6vw, 2.1rem);
     font-weight: 800;
@@ -85,14 +88,14 @@
     word-break: break-word;
 }
 
-.participant-role {
+.ca-participant-role {
     margin: 0;
     font-size: 1.02rem;
     color: var(--accent);
     font-weight: 700;
 }
 
-.participant-years {
+.ca-participant-years {
     display: inline-block;
     padding: .18rem .5rem;
     background: rgba(255, 255, 255, 0.02);
@@ -103,14 +106,16 @@
     border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
-.participant-bio {
+/* bio */
+.ca-participant-bio {
     margin-top: .9rem;
     color: var(--subtext);
     line-height: 1.7;
     font-size: 1rem;
 }
 
-.participant-socials {
+/* socials */
+.ca-participant-socials {
     display: flex;
     gap: .6rem;
     margin-top: .6rem;
@@ -118,7 +123,7 @@
     flex-wrap: wrap;
 }
 
-.social-link {
+.ca-social-link {
     display: inline-flex;
     gap: .5rem;
     align-items: center;
@@ -133,33 +138,34 @@
     transition: transform .12s ease, background .12s ease;
 }
 
-.social-link--ig {
+.ca-social-link--ig {
     color: #d6249f;
     border-color: rgba(214, 36, 159, 0.06);
 }
 
-.social-link--li {
+.ca-social-link--li {
     color: #0a66c2;
     border-color: rgba(10, 102, 194, 0.06);
 }
 
-.social-link svg {
+.ca-social-link svg {
     display: inline-block;
     vertical-align: middle;
 }
 
-.social-link:hover {
+.ca-social-link:hover {
     transform: translateY(-3px);
     background: rgba(255, 255, 255, 0.03);
 }
 
-.social-link:focus-visible {
+.ca-social-link:focus-visible {
     outline: 3px solid var(--focus-ring);
     outline-offset: 3px;
     border-radius: 10px;
 }
 
-.participant-pagination {
+/* pagination */
+.ca-participant-pagination {
     display: flex;
     gap: .5rem;
     justify-content: space-between;
@@ -167,38 +173,40 @@
     align-items: center;
 }
 
+/* responsiveness */
 @media (max-width:720px) {
-    .participant-header {
+    .ca-participant-header {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
-    .participant-headline {
+    .ca-participant-headline {
         align-items: center;
     }
 
-    .participant-title-row {
+    .ca-participant-title-row {
         justify-content: center;
     }
 
-    .participant-photo,
-    .participant-photo--fallback {
+    .ca-participant-photo,
+    .ca-participant-photo--fallback {
         width: 140px;
         height: 140px;
     }
 }
 
+/* reduced motion */
 @media (prefers-reduced-motion: reduce) {
-
-    .social-link,
-    .participant-profile {
+    .ca-social-link,
+    .ca-participant-profile {
         transition: none !important;
         transform: none !important;
     }
 }
 
-.participant-pagination {
+/* pagination repeated safe rules */
+.ca-participant-pagination {
     display: flex;
     gap: 0.6rem;
     justify-content: space-between;
@@ -206,7 +214,8 @@
     margin-top: 1.25rem;
 }
 
-.btn {
+/* buttons */
+.ca-btn {
     display: inline-flex;
     align-items: center;
     gap: .5rem;
@@ -223,34 +232,34 @@
     cursor: pointer;
 }
 
-.btn-primary {
+.ca-btn-primary {
     background: rgba(255, 255, 255, 0.02);
     color: var(--text);
     border-color: rgba(255, 255, 255, 0.06);
     box-shadow: 0 6px 18px rgba(2, 6, 23, 0.24);
 }
 
-.btn-primary:hover {
+.ca-btn-primary:hover {
     background: rgba(255, 255, 255, 0.035);
     transform: translateY(-2px);
 }
 
-.btn-primary:active {
+.ca-btn-primary:active {
     transform: translateY(-1px);
 }
 
-.btn-secondary {
+.ca-btn-secondary {
     background: rgba(255, 255, 255, 0.02);
     color: var(--text);
     border-color: rgba(255, 255, 255, 0.06);
 }
 
-.btn-secondary:hover {
+.ca-btn-secondary:hover {
     background: rgba(255, 255, 255, 0.035);
     transform: translateY(-2px);
 }
 
-.btn-placeholder {
+.ca-btn-placeholder {
     display: inline-block;
     min-width: 120px;
     height: calc(1.6rem + var(--btn-padding, 0.55rem));
@@ -258,9 +267,9 @@
     background: transparent;
 }
 
-.btn[aria-disabled="true"],
-.btn[disabled],
-.btn.btn-disabled {
+.ca-btn[aria-disabled="true"],
+.ca-btn[disabled],
+.ca-btn.ca-btn-disabled {
     opacity: .42;
     pointer-events: none;
     transform: none;
@@ -268,37 +277,38 @@
     cursor: default;
 }
 
-.btn::before,
-.btn::after {
+.ca-btn::before,
+.ca-btn::after {
     line-height: 0;
     font-size: 1.05rem;
 }
 
-.btn:focus-visible {
+.ca-btn:focus-visible {
     outline: 3px solid var(--focus-ring);
     outline-offset: 3px;
     border-radius: var(--btn-radius);
 }
 
-.btn--small {
+.ca-btn--small {
     padding: .35rem .6rem;
     font-size: .88rem;
     min-width: 92px;
 }
 
+/* small screens pagination */
 @media (max-width:520px) {
-    .participant-pagination {
+    .ca-participant-pagination {
         flex-direction: column;
         gap: .5rem;
         align-items: stretch;
     }
 
-    .participant-pagination .btn {
+    .ca-participant-pagination .ca-btn {
         width: 100%;
         justify-content: center;
     }
 
-    .btn-placeholder {
+    .ca-btn-placeholder {
         width: 100%;
         min-width: auto;
         height: 44px;
