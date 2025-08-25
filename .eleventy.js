@@ -25,7 +25,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("participants", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("src/sobre/*.md").sort((a, b) => {
+    return collectionApi.getFilteredByGlob("src/equipe/*.md").sort((a, b) => {
       const A = (
         a.data && a.data.title ? String(a.data.title) : ""
       ).toLowerCase();
@@ -84,7 +84,7 @@ module.exports = function (eleventyConfig) {
           collectionApi.getFilteredByTag &&
           collectionApi.getFilteredByTag("participants");
         if (byTag && byTag.length) {
-          return byTag.filter((p) => p.url !== "/sobre/");
+          return byTag.filter((p) => p.url !== "/equipe/");
         }
       } catch (e) {
         /* ignora */
@@ -101,20 +101,38 @@ module.exports = function (eleventyConfig) {
             .includes("/participants/");
           return (
             (layout.includes("participant") || inParticipantsFolder) &&
-            item.url !== "/sobre/"
+            item.url !== "/equipe/"
           );
         });
         if (maybe.length) return maybe;
       }
 
-      return collectionApi.getAll().filter((item) => item.url !== "/sobre/");
+      return collectionApi.getAll().filter((item) => item.url !== "/equipe/");
     }
   );
 
   eleventyConfig.addPassthroughCopy({
     "src/blog/img": "img",
   });
-  
+  eleventyConfig.addFilter("date", function (dateInput, format) {
+    const d =
+      dateInput === "now"
+        ? new Date()
+        : dateInput instanceof Date
+        ? dateInput
+        : new Date(dateInput);
+
+    if (isNaN(d.getTime())) return ""; 
+
+    if (format === "YYYY") {
+      return String(d.getFullYear());
+    }
+    if (format === "DD/MM/YYYY") {
+      return d.toLocaleDateString("pt-BR");
+    }
+
+    return d.toISOString();
+  });
 
   return {
     dir: { input: "src", includes: "_includes", output: "_site" },

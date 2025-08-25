@@ -1,0 +1,197 @@
+---
+layout: base.njk
+title: Participantes
+permalink: /equipe/
+---
+
+<section class="participants-page">
+  <header class="participants-header">
+    <h1>👥 Conheça o Clube</h1>
+    <p class="participants-intro">Membros, colaboradores e amigos que fazem parte do nosso clube.</p>
+  </header>
+
+  <!-- Controles: busca + paginação -->
+  <div class="participants-controls" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin:1rem 0;">
+    <label for="participant-search" style="display:inline-flex;align-items:center;gap:.5rem;">
+      🔎
+      <input id="participant-search" type="search" placeholder="Buscar por nome..." aria-label="Buscar participantes" style="padding:.5rem .6rem;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:inherit;">
+    </label>
+
+    <div id="participants-pager" class="participants-pager" aria-label="Paginação" style="margin-left:auto;display:flex;gap:.5rem;flex-wrap:wrap;"></div>
+  </div>
+
+  <ul class="participants-list" role="list">
+    {% for participant in collections.participants %}
+      {% if participant.url != "/sobre/" %}
+        <li class="participant-card" role="listitem" data-name="{{ (participant.data.title | default('')) }}">
+          <a class="participant-link" href="{{ participant.url }}" aria-labelledby="p-{{ forloop.index }}-name">
+            {% if participant.data.photo %}
+              <img
+                class="participant-photo"
+                src="{{ participant.data.photo }}"
+                alt="Foto de {{ participant.data.title | default('Participante') }}"
+                width="320"
+                height="320"
+                loading="lazy"
+              />
+            {% else %}
+              <div class="participant-photo participant-photo--fallback" aria-hidden="true">👤</div>
+            {% endif %}
+
+            <div class="participant-body">
+              <h2 id="p-{{ forloop.index }}-name" class="participant-name">{{ participant.data.title | default("—") }}</h2>
+              {% if participant.data.role %}
+                <p class="participant-role">{{ participant.data.role }}</p>
+              {% endif %}
+              {% if participant.data.bio %}
+                <p class="participant-bio">{{ participant.data.bio }}</p>
+              {% endif %}
+            </div>
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <div id="participants-empty" class="participants-empty" style="display:none;margin-top:1.25rem;">
+    Nenhum participante encontrado.
+  </div>
+</section>
+
+{# ===========================
+   Script client-side: busca + paginação (5 por página)
+   =========================== #}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const perPage = 6;
+  const listEl = document.querySelector('.participants-list');
+  const items = Array.from(listEl.querySelectorAll('.participant-card'));
+  const searchInput = document.getElementById('participant-search');
+  const pagerEl = document.getElementById('participants-pager');
+  const emptyEl = document.getElementById('participants-empty');
+
+  // normaliza texto: remove acentos, diacríticos e lower case
+  function normalizeText(s) {
+    if (!s) return '';
+    // decomposição Unicode + remoção de diacríticos
+    return s.normalize && s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  // cria índice normalizado (aplicado uma vez)
+  items.forEach(it => {
+    const raw = it.getAttribute('data-name') || '';
+    it.dataset.nname = normalizeText(raw);
+  });
+
+  // lê params iniciais da URL
+  const params = new URLSearchParams(window.location.search);
+  let currentQuery = params.get('q') ? String(params.get('q')).trim().toLowerCase() : '';
+  let currentPage = params.get('page') ? Math.max(1, parseInt(params.get('page'), 10) || 1) : 1;
+
+  if (currentQuery) searchInput.value = currentQuery;
+
+  function getFiltered(query) {
+    if (!query) return items.slice();
+    const nq = normalizeText(query);
+    return items.filter(it => (it.dataset.nname || '').indexOf(nq) !== -1);
+  }
+
+  function updateURL(query, page) {
+    const sp = new URLSearchParams(window.location.search);
+    if (query) sp.set('q', query); else sp.delete('q');
+    if (page && page > 1) sp.set('page', String(page)); else sp.delete('page');
+    const newUrl = window.location.pathname + (sp.toString() ? '?' + sp.toString() : '');
+    window.history.replaceState({}, '', newUrl);
+  }
+
+  function renderPage(filteredItems, page) {
+    const total = filteredItems.length;
+    const totalPages = Math.max(1, Math.ceil(total / perPage));
+    if (page > totalPages) page = totalPages;
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+
+    // esconde todos e depois mostra os do slice
+    items.forEach(it => it.style.display = 'none');
+    filteredItems.slice(start, end).forEach(it => it.style.display = '');
+
+    emptyEl.style.display = filteredItems.length === 0 ? '' : 'none';
+
+    currentPage = page;
+    updateURL(currentQuery, currentPage);
+    renderPager(totalPages, currentPage);
+  }
+
+  function renderPager(totalPages, activePage) {
+    pagerEl.innerHTML = '';
+    if (totalPages <= 1) return;
+
+    function makeButton(label, page, isDisabled, isActive) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = label;
+      btn.dataset.page = String(page);
+      btn.disabled = !!isDisabled;
+      btn.setAttribute('aria-label', isActive ? `Página ${page} (atual)` : `Ir para página ${page}`);
+      btn.style.padding = '.35rem .6rem';
+      btn.style.borderRadius = '8px';
+      btn.style.border = '1px solid rgba(0,0,0,0.06)';
+      btn.style.background = isActive ? 'rgba(0,0,0,0.06)' : 'transparent';
+      btn.style.color = 'inherit';
+      btn.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
+      if (isActive) btn.setAttribute('aria-current', 'page');
+      return btn;
+    }
+
+    // Prev
+    pagerEl.appendChild(makeButton('‹', Math.max(1, activePage - 1), activePage === 1, false));
+
+    // janela de botões
+    const maxButtons = 7;
+    let start = 1;
+    let end = totalPages;
+    if (totalPages > maxButtons) {
+      const half = Math.floor(maxButtons / 2);
+      start = Math.max(1, activePage - half);
+      end = Math.min(totalPages, start + maxButtons - 1);
+      if (end - start + 1 < maxButtons) start = Math.max(1, end - maxButtons + 1);
+    }
+
+    for (let i = start; i <= end; i++) {
+      pagerEl.appendChild(makeButton(String(i), i, false, i === activePage));
+    }
+
+    // Next
+    pagerEl.appendChild(makeButton('›', Math.min(totalPages, activePage + 1), activePage === totalPages, false));
+
+    // Clicks
+    Array.from(pagerEl.querySelectorAll('button')).forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const page = parseInt(e.currentTarget.dataset.page, 10) || 1;
+        const filtered = getFiltered(currentQuery);
+        renderPage(filtered, page);
+        listEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  // debounce
+  let debounceTimer = null;
+  function onSearchChange() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      currentQuery = (searchInput.value || '').trim();
+      const filtered = getFiltered(currentQuery);
+      renderPage(filtered, 1);
+    }, 200);
+  }
+
+  searchInput.addEventListener('input', onSearchChange);
+
+  // Init
+  (function init() {
+    const filtered = getFiltered(currentQuery);
+    renderPage(filtered, currentPage);
+  })();
+});
+</script>
