@@ -2,7 +2,7 @@
 layout: participant.njk
 title: Diego
 role: Desenvolvedor
-bio: "Desenvolvedor full-stack e membro fundador do website do Clube."
+bio: "Membro fundador do website do Clube."
 linkedin: diegooilv # slug do perfil (linkedin.com/in/SLUG)
 years: "2023-2025" # string livre — ou "2019" ou "2019–presente"
 ---
