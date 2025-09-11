@@ -17,6 +17,8 @@ module.exports = function (eleventyConfig) {
   };
 };
 
+const nunjucks = require("nunjucks");
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("posts", function (collectionApi) {
     return collectionApi
@@ -64,15 +66,24 @@ module.exports = function (eleventyConfig) {
     });
   });
 
-  eleventyConfig.addFilter("formatDate", function (dateObj) {
-    if (!dateObj) return "";
-    const d = typeof dateObj === "string" ? new Date(dateObj) : dateObj;
-    const y = d.getUTCFullYear();
-    const m = d.getUTCMonth();
-    const day = d.getUTCDate();
-    const localSameDay = new Date(y, m, day);
-    return localSameDay.toLocaleDateString("pt-BR");
-  });
+eleventyConfig.addFilter("formatDate", function(date) {
+  if (!date) return '';
+
+  let d;
+  if (date instanceof Date) {
+    d = date;
+  } else {
+    d = new Date(date);
+    if (isNaN(d)) return String(date); // fallback se não for data válida
+  }
+
+  const dia = String(d.getDate()).padStart(2, '0');
+  const mes = String(d.getMonth() + 1).padStart(2, '0'); // meses começam do 0
+  const ano = d.getFullYear();
+
+  return `${dia}/${mes}/${ano}`;
+});
+
 
   eleventyConfig.addPassthroughCopy("src/css");
 
@@ -112,7 +123,8 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.addPassthroughCopy({
-    "src/blog/img": "img",
+    "src/img": "img",
+    "src/blog/img": "blog/img",
   });
   eleventyConfig.addFilter("date", function (dateInput, format) {
     const d =
@@ -122,7 +134,7 @@ module.exports = function (eleventyConfig) {
         ? dateInput
         : new Date(dateInput);
 
-    if (isNaN(d.getTime())) return ""; 
+    if (isNaN(d.getTime())) return "";
 
     if (format === "YYYY") {
       return String(d.getFullYear());
@@ -132,6 +144,18 @@ module.exports = function (eleventyConfig) {
     }
 
     return d.toISOString();
+  });
+  
+  eleventyConfig.addPassthroughCopy({
+    "src/js": "js", 
+  });
+
+  eleventyConfig.addFilter("jsonify", function(value) {
+    return JSON.stringify(value);
+  });
+
+  eleventyConfig.addNunjucksFilter("jsonify", function(value) {
+    return new nunjucks.runtime.SafeString(JSON.stringify(value));
   });
 
   return {
