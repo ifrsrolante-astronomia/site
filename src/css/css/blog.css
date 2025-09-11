@@ -64,3 +64,16 @@
 .btn-placeholder {
     flex: 1;
 }
+
+.ca-search input[type="search"]{padding:.5rem .75rem;border-radius:.5rem;border:1px solid rgba(0,0,0,.12);min-width:280px;font-size:1rem}
+.ca-search button{background:transparent;border:none;cursor:pointer;font-size:.9rem;opacity:.7}
+.client-numeric-pagination{display:flex;gap:.4rem;justify-content:center;margin:1rem auto 2rem;flex-wrap:wrap}
+.client-numeric-pagination .page{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:38px;padding:0 .6rem;border-radius:.5rem;text-decoration:none;border:1px solid rgba(0,0,0,.06);background:#fff;color:inherit;font-weight:500}
+.client-numeric-pagination .page.current{background:#0077cc;color:#fff;border-color:rgba(0,119,204,.9);box-shadow:0 6px 18px rgba(0,119,204,.08)}
+.dots{display:inline-flex;align-items:center;justify-content:center;min-width:28px;color:#6b7280}
+.no-results{color:#6b7280;padding:1rem}
+
+
+
+
+
