@@ -55,7 +55,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("nextWednesday", function () {
     const hoje = new Date();
     const diaSemana = hoje.getDay();
-    const diasAteQuarta = (3 - diaSemana + 7) % 7 || 7;
+    const diasAteQuarta = (4 - diaSemana + 7) % 7 || 7;
     const proxima = new Date();
     proxima.setDate(hoje.getDate() + diasAteQuarta);
     return proxima.toLocaleDateString("pt-BR", {
