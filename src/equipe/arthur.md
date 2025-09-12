@@ -1,6 +1,6 @@
 ---
 layout: participant.njk
-title: Arthur Silva
+title: Arthur Gomes Severo
 role: Bolsista
 bio: "Pesquisador e Divulgador Científico"
 linkedin: arthur-gomes-severo
