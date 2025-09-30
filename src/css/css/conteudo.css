@@ -1,0 +1,42 @@
+.conteudos-page {
+  max-width: var(--site-max);
+  margin: 2rem auto;
+  padding: 1.25rem;
+}
+
+.conteudos-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.conteudos-header h1 {
+  font-size: 2rem;
+  color: var(--accent-soft);
+}
+
+.conteudos-intro {
+  color: var(--subtext);
+  font-size: 1.1rem;
+}
+
+/* Estilos para o card de conteúdo */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.card-title {
+    margin-bottom: 0.5rem;
+}
+
+.card-excerpt {
+    flex-grow: 1;
+}
+
+.card-date {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 1rem;
+}

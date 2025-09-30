@@ -1,0 +1,53 @@
+.about,
+.activities,
+.contact {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 28px 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.about h2,
+.activities h2,
+.contact h2 {
+  color: var(--accent-soft);
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+}
+
+.about ul,
+.activities ul,
+.contact ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about ul li,
+.activities ul li,
+.contact ul li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 10px;
+  color: var(--subtext);
+}
+
+.about ul li::before,
+.activities ul li::before,
+.contact ul li::before {
+  content: '⭐';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.contact a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+}

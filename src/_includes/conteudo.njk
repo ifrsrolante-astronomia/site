@@ -1,0 +1,14 @@
+---
+layout: base.njk
+---
+
+<article class="conteudo-post">
+  <header class="conteudo-header">
+    <h1>{{ title }}</h1>
+    <p class="conteudo-date">Publicado em: {{ date | formatDate }}</p>
+  </header>
+  
+  <div class="conteudo-body">
+    {{ content | safe }}
+  </div>
+</article>

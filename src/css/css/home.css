@@ -1,0 +1,250 @@
+.home-hero,
+.home-intro,
+.home-features,
+.home-contact,
+.home-hero>*,
+.home-intro>*,
+.home-features>*,
+.home-contact>*,
+.home-intro__grid>*,
+.home-features__grid>*,
+.home-contact__links>*,
+.home-latest__list,
+.home-latest__item,
+.home-latest__link,
+.feature-item>* {
+    margin: 0;
+    padding: 0;
+}
+
+.home-hero {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.home-hero__title {
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
+}
+
+.home-hero__subtitle {
+    color: var(--subtext);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 1.5rem auto;
+}
+
+.home-intro {
+    margin: 3.5rem 0;
+}
+
+.home-intro__grid {
+    display: grid;
+    grid-template-columns: 2fr 1.3fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.home-about__title {
+    font-size: 1.8rem;
+    color: var(--accent-soft);
+    margin-bottom: 1.5rem;
+}
+
+.home-about__text {
+    color: var(--subtext);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.home-about__text:last-child {
+    margin-bottom: 0;
+}
+
+.home-latest__title {
+    font-size: 1.4rem;
+    color: var(--accent-soft);
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+}
+
+.home-latest__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    margin: 0px;
+}
+
+.home-latest__link {
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.home-latest__link:hover {
+    background-color: rgba(74, 163, 255, 0.08);
+    border-color: rgba(74, 163, 255, 0.15);
+}
+
+.home-latest__post-title {
+    display: block;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.home-latest__post-preview {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.home-latest__all-posts-link {
+    display: inline-block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent-soft);
+    text-decoration: none;
+}
+
+.home-latest__all-posts-link:hover {
+    text-decoration: underline;
+}
+
+.home-features {
+    margin-bottom: 3.5rem;
+    text-align: center;
+}
+
+.home-features__title {
+    font-size: 1.8rem;
+    color: var(--accent-soft);
+    margin-bottom: 0.5rem;
+}
+
+.home-features__subtitle {
+    color: var(--subtext);
+    margin-bottom: 2rem;
+}
+
+.home-features__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    text-align: left;
+}
+
+.feature-item {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-item__title {
+    font-size: 1.2rem;
+    color: var(--accent-soft);
+    margin-bottom: 0.5rem;
+}
+
+.feature-item__text {
+    color: var(--subtext);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.home-contact {
+    text-align: center;
+}
+
+.home-contact__title {
+    font-size: 1.8rem;
+    color: var(--accent-soft);
+
+}
+
+.home-contact__subtitle {
+    color: var(--subtext);
+    margin-bottom: 1.5rem;
+}
+
+.home-contact__links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.contact-button-ig {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.contact-button-ig:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-soft);
+    color: var(--accent-soft);
+    transform: translateY(-2px);
+}
+
+.contact-button-ig__icon {
+    margin-right: 0.75rem;
+    color: #E1306C;
+}
+
+.next-meeting {
+    text-align: left;
+}
+
+.next-meeting__label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.next-meeting__date {
+    font-weight: 700;
+    color: var(--text);
+}
+
+@media (max-width: 820px) {
+    .home-intro__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-about__title,
+    .home-features__title,
+    .home-contact__title {
+        text-align: center;
+    }
+}

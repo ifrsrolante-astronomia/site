@@ -1,0 +1,40 @@
+---
+layout: base.njk
+title: Blog do Clube
+---
+
+<h1>📰 Blog do Clube</h1>
+
+<div class="search-container">
+  <input id="blog-search" type="search" class="search-input" placeholder="Buscar por título ou conteúdo..." aria-label="Buscar no blog">
+  <div class="search-icon" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+  </div>
+</div>
+
+<div class="blog-list">
+{% for post in collections.posts %}
+  <div class="blog-card" data-searchable="{{ post.data.title }} {{ post.templateContent | stripHtml }}">
+    <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+    <p class="post-date">Publicado em {{ post.data.date | formatDate }}</p>
+    <p>{{ post.templateContent | excerpt }}</p>
+  </div>
+{% endfor %}
+</div>
+
+<div id="blog-empty" class="participants-empty" style="display:none;">
+  Nenhum post encontrado.
+</div>
+
+<script src="/js/search-and-paginate.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    initSearchAndPaginate({
+      searchInputId: 'blog-search',
+      listContainerSelector: '.blog-list',
+      listItemSelector: '.blog-card',
+      emptyStateSelector: '#blog-empty',
+      dataAttribute: 'data-searchable'
+    });
+  });
+</script>

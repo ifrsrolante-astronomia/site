@@ -1,0 +1,50 @@
+@media (max-width:520px) {
+  header h1 {
+    font-size: 1.6rem;
+  }
+
+  header nav a {
+    padding: 8px 12px;
+    font-size: .92rem;
+  }
+
+  .cta-buttons a.btn {
+    padding: 10px 14px;
+    font-size: .95rem;
+  }
+
+  .site-wrapper {
+    padding: 14px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .about h2,
+  .activities h2,
+  .contact h2 {
+    font-size: 1.3rem;
+  }
+
+  .about,
+  .activities,
+  .contact {
+    padding: 20px;
+  }
+
+  .cta-buttons a.btn {
+    padding: 10px 18px;
+    font-size: 0.95rem;
+  }
+}

@@ -1,0 +1,40 @@
+---
+layout: base.njk
+title: "{{ title }}"
+---
+
+<main>
+<div class="blog-post-content">
+  {{ content | safe }}
+</div>
+</main>
+
+{% set prev = null %}
+{% set next = null %}
+{% set found = false %}
+
+{% for p in collections.posts %}
+  {% if p.url != "/blog/" %}
+    {% if found and next == null %}
+      {% set next = p.url %}
+    {% endif %}
+
+    {% if p.url == page.url %}
+      {% set found = true %}
+    {% elif not found %}
+      {% set prev = p.url %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<nav class="participant-pagination" aria-label="Navegação entre participantes">
+  {% if prev %}
+    <a href="{{ prev }}" class="btn btn-secondary">⬅ Anterior</a>
+  {% else %}
+    <span class="btn-placeholder"></span>
+  {% endif %}
+
+  {% if next %}
+    <a href="{{ next }}" class="btn btn-primary">Próximo ➡</a>
+  {% endif %}
+</nav>

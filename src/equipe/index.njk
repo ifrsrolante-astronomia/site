@@ -1,0 +1,57 @@
+---
+layout: base.njk
+title: Participantes
+permalink: /equipe/
+---
+
+<section class="participants-page">
+  <header class="participants-header">
+    <h1>👥 Conheça o Clube</h1>
+    <p class="participants-intro">Membros, colaboradores e amigos que fazem parte do nosso clube.</p>
+  </header>
+
+  <div class="search-container">
+    <input id="participant-search" type="search" class="search-input" placeholder="Buscar por nome..." aria-label="Buscar participantes">
+    <div class="search-icon" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </div>
+  </div>
+
+  <ul class="participants-list" role="list">
+    {% for participant in collections.participants %}
+      {% if participant.url != "/equipe/" %}
+        <li class="participant-card" role="listitem" data-name="{{ participant.data.title | default('') }}">
+          <a class="participant-link" href="{{ participant.url }}" aria-labelledby="p-{{ forloop.index }}-name">
+            {% if participant.data.photo %}
+              <img class="participant-photo" src="{{ participant.data.photo }}" alt="Foto de {{ participant.data.title | default('Participante') }}" loading="lazy" />
+            {% else %}
+              <div class="participant-photo participant-photo--fallback" aria-hidden="true">👤</div>
+            {% endif %}
+            <div class="participant-body">
+              <h2 id="p-{{ forloop.index }}-name" class="participant-name">{{ participant.data.title | default("—") }}</h2>
+              {% if participant.data.role %}<p class="participant-role">{{ participant.data.role }}</p>{% endif %}
+              {% if participant.data.bio %}<p class="participant-bio">{{ participant.data.bio }}</p>{% endif %}
+            </div>
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <div id="participants-empty" class="participants-empty" style="display:none;">
+    Nenhum participante encontrado.
+  </div>
+</section>
+
+<script src="/js/search-and-paginate.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    initSearchAndPaginate({
+      searchInputId: 'participant-search',
+      listContainerSelector: '.participants-list',
+      listItemSelector: '.participant-card',
+      emptyStateSelector: '#participants-empty',
+      dataAttribute: 'data-name'
+    });
+  });
+</script>

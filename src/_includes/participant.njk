@@ -1,0 +1,100 @@
+---
+layout: base.njk
+---
+
+<article class="ca-participant-profile">
+  <header class="ca-participant-header">
+    {% if photo %}
+      <div class="ca-participant-media">
+        <img src="{{ photo }}" alt="Foto de {{ title }}" class="ca-participant-photo" />
+      </div>
+    {% else %}
+      <div class="ca-participant-media">
+        <div class="ca-participant-photo ca-participant-photo--fallback" aria-hidden="true">👤</div>
+      </div>
+    {% endif %}
+
+    <div class="ca-participant-headline">
+      <div class="ca-participant-title-row">
+        <h1 class="ca-participant-name">{{ title }}</h1>
+
+        {# anos de participação (opcional) #}
+        {% if years %}
+          <span class="ca-participant-years" aria-hidden="false">{{ years }}</span>
+        {% endif %}
+      </div>
+
+      {% if role %}
+        <h2 class="ca-participant-role">{{ role }}</h2>
+      {% endif %}
+
+      {# Social links (aparecem só se houver) #}
+      {% if instagram or linkedin %}
+        <div class="ca-participant-socials" aria-label="Redes sociais de {{ title }}">
+          {% if instagram %}
+            <a class="ca-social-link ca-social-link--ig"
+               href="https://instagram.com/{{ instagram }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Instagram de {{ title }}">
+              <!-- ícone IG -->
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.2A3.8 3.8 0 1 0 15.8 12 3.8 3.8 0 0 0 12 8.2zm5.1-.8a0.9.9 0 1 1-0.9-0.9 0.9.9 0 0 1 0.9.9z"></path>
+              </svg>
+              <span class="ca-social-label">@{{ instagram }}</span>
+            </a>
+          {% endif %}
+
+          {% if linkedin %}
+            <a class="ca-social-link ca-social-link--li"
+               href="https://linkedin.com/in/{{ linkedin }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="LinkedIn de {{ title }}">
+              <!-- ícone LI -->
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M4.98 3.5C4.98 4.6 4.1 5.5 3 5.5S1 4.6 1 3.5 1.9 1.5 3 1.5s1.98.9 1.98 2zm.02 4.5H1V23h4V8zM8 8h3.9v2.06h.06c.54-1 1.86-2.06 3.82-2.06 4.09 0 4.84 2.69 4.84 6.19V23h-4v-6.59c0-1.57 0-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.49V23H8V8z"></path>
+              </svg>
+              <span class="ca-social-label">{{ linkedin }}</span>
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="ca-participant-bio">
+    {{ content | safe }}
+  </div>
+
+  {% set prev = null %}
+  {% set next = null %}
+  {% set found = false %}
+
+  {% for p in collections.participants %}
+    {# pula a página índice: /sobre/ #}
+    {% if p.url != "/sobre/" %}
+      {% if found and next == null %}
+        {% set next = p.url %}
+      {% endif %}
+
+      {% if p.url == page.url %}
+        {% set found = true %}
+      {% elif not found %}
+        {% set prev = p.url %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  <nav class="ca-participant-pagination" aria-label="Navegação entre participantes">
+    {% if prev %}
+      <a href="{{ prev }}" class="ca-btn ca-btn-secondary">⬅ Anterior</a>
+    {% else %}
+      <span class="ca-btn-placeholder"></span>
+    {% endif %}
+
+    {% if next %}
+      <a href="{{ next }}" class="ca-btn ca-btn-primary">Próximo ➡</a>
+    {% endif %}
+  </nav>
+</article>

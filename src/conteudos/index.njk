@@ -1,0 +1,52 @@
+---
+layout: base.njk
+title: Conteúdos
+permalink: /conteudos/
+---
+
+<section class="conteudos-page">
+  <header class="conteudos-header">
+    <h1>📚 Nossos Conteúdos</h1>
+    <p class="conteudos-intro">Explore os materiais, resumos e guias de estudo do Clube de Astronomia.</p>
+  </header>
+
+  <div class="search-container">
+    <input id="conteudo-search" type="search" class="search-input" placeholder="Buscar por título..." aria-label="Buscar conteúdos">
+    <div class="search-icon" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </div>
+  </div>
+
+  <div class="cards-list">
+    {% for conteudo in collections.conteudos %}
+      {% if conteudo.url != page.url %}
+        <div class="card" data-name="{{ conteudo.data.title }}">
+          <a class="card-link" href="{{ conteudo.url }}">
+            <div class="card-body">
+              <h2 class="card-title">{{ conteudo.data.title }}</h2>
+              <p class="card-excerpt">{{ conteudo.data.excerpt }}</p>
+              <span class="card-date">Publicado em: {{ conteudo.data.date | formatDate }}</span>
+            </div>
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div id="conteudo-empty" class="participants-empty" style="display:none;">
+    Nenhum conteúdo encontrado.
+  </div>
+</section>
+
+<script src="/js/search-and-paginate.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    initSearchAndPaginate({
+      searchInputId: 'conteudo-search',
+      listContainerSelector: '.cards-list',
+      listItemSelector: '.card',
+      emptyStateSelector: '#conteudo-empty',
+      dataAttribute: 'data-name'
+    });
+  });
+</script>

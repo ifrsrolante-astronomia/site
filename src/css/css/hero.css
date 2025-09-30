@@ -1,0 +1,29 @@
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px 20px;
+  background:
+    radial-gradient(circle at 50% 100%, rgba(74, 163, 255, 0.1), transparent 40%),
+    linear-gradient(180deg, rgba(7, 26, 82, 0.85), rgba(0, 16, 43, 0.85));
+  border-radius: 12px;
+  margin-bottom: 40px;
+  border: 1px solid var(--card-border); 
+}
+
+.hero h1 {
+  font-size: 2.4rem;
+  color: var(--accent-soft);
+  margin-bottom: 14px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--subtext);
+  max-width: 650px;
+  margin: 0 auto 20px auto;
+  line-height: 1.5;
+}
+
+.hero .cta-buttons {
+  justify-content: center;
+  gap: 14px;
+}
