@@ -58,13 +58,13 @@ module.exports = function (eleventyConfig) {
     return clean.slice(0, length).trim() + "...";
   });
 
-  // Calcula e formata a data da próxima quarta-feira.
+  // Calcula e formata a data da próxima quinta-feira.
   eleventyConfig.addFilter("nextWednesday", function () {
     const hoje = new Date();
     const diaSemana = hoje.getDay();
-    const diasAteQuarta = (3 - diaSemana + 7) % 7 || 7; // Ajustado para Quarta-feira (dia 3)
+    const diasAteQuinta = (4 - diaSemana + 7) % 7 || 7; // Ajustado para Quinta Feira
     const proxima = new Date();
-    proxima.setDate(hoje.getDate() + diasAteQuarta);
+    proxima.setDate(hoje.getDate() + diasAteQuinta);
     return proxima.toLocaleDateString("pt-BR", {
       day: "2-digit",
       month: "2-digit",
